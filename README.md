@@ -1,8 +1,14 @@
 # Rest API MBKM 
 
+## Clone Project 
+Clone with HTTP
+```
+https://github.com/aajims/be-mbkm.git
+```
 ## Project setup
 ```
 yarn install
+```
 ```
 npx sequelize-cli db:migrate
 ```
