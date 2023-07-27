@@ -5,7 +5,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 function auth(req, res, next) {
     const authHeader = req.headers.authorization;
-
     if (authHeader) {
         // Jika ada header authorization yang dikirimkan
         console.log(authHeader);

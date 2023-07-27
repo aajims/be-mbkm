@@ -48,7 +48,7 @@ controller.insert = async function (req, res) {
     const data = {
         nama : req.body.nama,
         alamat : req.body.alamat,
-        telpon : req.body.telpon
+        website : req.body.website
     }
     const schema = {
         nama : { type: "string", min: 3, max: 30, optional: false },
@@ -84,7 +84,7 @@ controller.update = async function (req, res) {
     const data = {
         nama: req.body.nama,
         alamat : req.body.alamat,
-        telpon : req.body.telpon
+        website : req.body.website
     }
     const schema = {
         nama : { type: "string", min: 6, max: 30, optional: false },

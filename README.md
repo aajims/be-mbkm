@@ -7,7 +7,7 @@ https://github.com/aajims/be-mbkm.git
 ```
 ## Project setup
 ```
-yarn install
+npm install
 ```
 ```
 npx sequelize-cli db:migrate
@@ -15,17 +15,17 @@ npx sequelize-cli db:migrate
 
 ### Compiles and hot-reloads for development
 ```
-yarn start
+npm start
 ```
 
 ### Compiles and minifies for production
 ```
-yarn run build
+npm run build
 ```
 
 ### Run your tests
 ```
-yarn run test
+npm run test
 ```
 
 ### Lints and fixes files

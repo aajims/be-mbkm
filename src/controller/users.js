@@ -9,6 +9,8 @@ const bcrypt = require('bcrypt');
 require('dotenv').config();
 const JWT_SECRET = process.env.JWT_SECRET;
 const { Op } = require('sequelize');
+const randtoken = require('rand-token');
+var nodemailer = require('nodemailer');
 
 controller.signup = async function (req, res) {
     bcrypt.genSalt(10, function(err, salt) {
@@ -183,7 +185,12 @@ controller.updateUsers = async function (req, res) {
         alamat : req.body.alamat,
         no_hp : req.body.no_hp,
         status : req.body.status,
-        id_role : req.body.id_role
+        id_role : req.body.id_role,
+        jabatan : req.body.jabatan,
+        mulai_mengajar : req.body.mulai_mengajar,
+        status_mengajar : req.body.status_mengajar,
+        mengajar_jenjang : req.body.mengajar_jenjang,
+        perguruan_tinggi : req.body.perguruan_tinggi
     }
     const schema = {
         email : { type: "email", optional: false },
@@ -309,5 +316,105 @@ controller.updateProfile = async function (req, res) {
             }
         })
     })
+}
+
+const sendEmail = (email, token) => {
+    var mail = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'nbhnazfar@gmail.com', // Your email id
+            pass: 'sharifa07' // Your password
+        }
+    });
+    var mailOptions = {
+        from: 'nbhnazfar@gmail.com',
+        to: email,
+        subject: 'Reset Password Link - Nicesnippets.com',
+        html: 'You requested for reset password, kindly use this localhost:4000/api/user/reset-password?token='+token+' to reset your password'
+    };
+   result  = mail.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            console.log(error)
+            return false
+        } else {
+            return true
+        }
+    });
+    return result
+}
+
+controller.requestResetPassword = async function (req, res) {
+    try {
+        await User.findOne({ where : {email : req.body.email} })
+        .then (async (result) => {
+            if(result.dataValues){
+                var token = await randtoken.generate(20);
+                var sent = sendEmail(req.body.email, token);
+                
+                if(sent){
+                    var data = {
+                        token: token
+                    }
+                    await User.update(data, {where : {email : req.body.email}}).then(result => {
+                        if(result){
+                            res.status(200).json({
+                                message: 'success Update data User',
+                                url: 'localhost:4000/api/user/reset-password?hash='+token,
+                                data: data
+                            })
+                        }else{
+                            res.status(401).json({
+                                message: error
+                            })
+                        }
+                    })
+                }
+           }
+        })
+        
+    } catch (error) {
+        console.log(error)
+        res.status(401).json({
+            message: error
+        })
+    }
+}
+
+controller.resetPassword = async function (req, res) {
+    try {
+        var token = req.params.hash;
+        console.log(token)
+        await User.findOne({ where : {token : token} })
+        .then (async (result) => {
+            if(result.dataValues){
+                bcrypt.genSalt(10, function(err, salt) {
+                    bcrypt.hash(req.body.password, salt, function(err, hash) {
+                        var data = {
+                            password: hash
+                        }
+                         User.update(data, {where : {token : token}}).then(result => {
+                            if(result){
+                                res.status(200).json({
+                                    message: 'Password berhasil diupdate',
+                                })
+                            }else{
+                                res.status(401).json({
+                                    message: error
+                                })
+                            }
+                        })
+            
+                        
+                })
+              })
+           }
+        })
+        
+    } catch (error) {
+        console.log(error)
+        res.status(401).json({
+            message: error
+        })
+    }
 }
 module.exports = controller;

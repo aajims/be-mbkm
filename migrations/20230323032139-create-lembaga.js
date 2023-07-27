@@ -15,7 +15,7 @@ module.exports = {
       alamat: {
         type: Sequelize.STRING
       },
-      telpon: {
+      website: {
         type: Sequelize.STRING
       },
       createdAt: {

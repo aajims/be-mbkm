@@ -18,6 +18,12 @@ module.exports = {
       id_dosen: {
         type: Sequelize.STRING
       },
+      periode_kegiatan: {
+        type: Sequelize.STRING
+      },
+      rincian_kegiatan: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

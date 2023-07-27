@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Lembaga.init({
     nama: DataTypes.STRING,
     alamat: DataTypes.STRING,
-    telpon: DataTypes.STRING
+    website: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Lembaga',
