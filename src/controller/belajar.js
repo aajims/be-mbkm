@@ -77,7 +77,9 @@ controller.insert = async function (req, res) {
     const data = {
         id_mbkm : req.body.id_mbkm,
         id_user : req.user.userid,
-        id_role : req.user.userRole
+        id_role : req.user.userRole,
+        periode_kegiatan : req.body.periode_kegiatan,
+        rincian_kegiatan : req.body.rincian_kegiatan
     }
     const schema = {
         id_mbkm : { type: "number", max: 3, optional: false },
@@ -110,7 +112,9 @@ controller.update = async function (req, res) {
     const data = {
         id_mbkm : req.body.id_mbkm,
         id_user : req.body.id_user,
-        id_role : req.body.id_role
+        id_role : req.body.id_role,
+        periode_kegiatan : req.body.periode_kegiatan,
+        rincian_kegiatan : req.body.rincian_kegiatan
     }
     const schema = {
         id_mbkm : { type: "string", max: 3, optional: false },

@@ -21,6 +21,15 @@ module.exports = {
       id_dosen: {
         type: Sequelize.STRING
       },
+      program_studi: {
+        type: Sequelize.STRING
+      },
+      fakultas: {
+        type: Sequelize.STRING
+      },
+      semester: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

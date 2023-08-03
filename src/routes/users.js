@@ -13,5 +13,7 @@ router.put('/approve/:id', [ authMiddleware.auth, adminMiddleware ], controller.
 router.get('/:id', [ authMiddleware.auth, adminMiddleware ], controller.users.getById);
 router.patch('/:id', [ authMiddleware.auth, adminMiddleware ], controller.users.updateUsers);
 router.delete('/:id', [ authMiddleware.auth, adminMiddleware ], controller.users.deleteUsers);
+router.post('/request-password-email', controller.users.requestResetPassword);
+router.post('/reset-password', controller.users.resetPassword);
 
 module.exports = router;
