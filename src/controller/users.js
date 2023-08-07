@@ -320,19 +320,20 @@ controller.updateProfile = async function (req, res) {
 
 const sendEmail = (email, token) => {
     var mail = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'mail.al-ikhlas.my.id',
+        port: 465,
         auth: {
-            user: 'nbhnazfar@gmail.com', // Your email id
-            pass: 'sharifa07' // Your password
+            user: 'admin@al-ikhlas.my.id', // Your email id
+            pass: 'Nadim@07' // Your password
         }
-    });
+    })
     var mailOptions = {
-        from: 'nbhnazfar@gmail.com',
+        from: 'admin@al-ikhlas.my.id',
         to: email,
-        subject: 'Reset Password Link - Nicesnippets.com',
-        html: 'You requested for reset password, kindly use this localhost:4000/api/user/reset-password?token='+token+' to reset your password'
+        subject: 'Reset Password Link',
+        html: 'You requested for reset password, kindly use this http://localhost:4000/api/user/reset-password?hash='+token+' to reset your password'
     };
-   result  = mail.sendMail(mailOptions, function(error, info) {
+   mail.sendMail(mailOptions, function(error, info) {
         if (error) {
             console.log(error)
             return false
@@ -340,7 +341,7 @@ const sendEmail = (email, token) => {
             return true
         }
     });
-    return result
+    return true;
 }
 
 controller.requestResetPassword = async function (req, res) {
@@ -348,7 +349,7 @@ controller.requestResetPassword = async function (req, res) {
         await User.findOne({ where : {email : req.body.email} })
         .then (async (result) => {
             if(result.dataValues){
-                var token = await randtoken.generate(20);
+                var token = randtoken.generate(20);
                 var sent = sendEmail(req.body.email, token);
                 
                 if(sent){
@@ -356,6 +357,7 @@ controller.requestResetPassword = async function (req, res) {
                         token: token
                     }
                     await User.update(data, {where : {email : req.body.email}}).then(result => {
+                        console.log(result)
                         if(result){
                             res.status(200).json({
                                 message: 'success Update data User',
@@ -382,8 +384,7 @@ controller.requestResetPassword = async function (req, res) {
 
 controller.resetPassword = async function (req, res) {
     try {
-        var token = req.params.hash;
-        console.log(token)
+        var token = req.query.hash;
         await User.findOne({ where : {token : token} })
         .then (async (result) => {
             if(result.dataValues){

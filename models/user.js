@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     status_mengajar: DataTypes.STRING,
     mengajar_jenjang: DataTypes.STRING,
     perguruan_tinggi: DataTypes.STRING,
+    token: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',
