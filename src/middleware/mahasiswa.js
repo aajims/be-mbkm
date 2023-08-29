@@ -1,7 +1,7 @@
 
 function mahasiswa(req, res, next) {
 
-    if (req.user.id_role == '3') {
+    if (req.user.userRole == 3) {
       next();
     } else {
         return res.status(401).json({

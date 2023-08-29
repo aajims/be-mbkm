@@ -9,7 +9,7 @@ const adminMiddleware = require('../middleware/admin');
 router.get('/', authMiddleware.auth, controller.dokumen.getAll);
 router.post('/upload', authMiddleware.auth, upload.single("file"), dosenMiddleware, controller.dokumen.insert);
 router.get('/:id', authMiddleware.auth, controller.dokumen.getById);
-router.delete('/:id', authMiddleware.auth, adminMiddleware, controller.dokumen.delete);
+router.delete('/:id', authMiddleware.auth, dosenMiddleware, adminMiddleware, controller.dokumen.delete);
 
 
 module.exports = router;

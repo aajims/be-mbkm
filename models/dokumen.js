@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     id_mbkm: DataTypes.STRING,
     file: DataTypes.STRING,
     lokasi_file: DataTypes.STRING,
-    id_dosen: DataTypes.STRING
+    id_dosen: DataTypes.STRING,
+    program_studi: DataTypes.STRING,
+    fakultas: DataTypes.STRING,
+    semester: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'dokumen',

@@ -52,9 +52,9 @@ controller.insert = async function (req, res) {
         lokasi_file : req.file.path,
         id_dosen : req.user.userid,
         id_mahasiswa : req.user.mahasiswa,
-        program_studi : req.user.program_studi,
-        fakultas : req.user.fakultas,
-        semester : req.user.semester
+        program_studi : req.body.program_studi,
+        fakultas : req.body.fakultas,
+        semester : req.body.semester
     }
     try {
         await dokumen.create(data)
@@ -78,9 +78,9 @@ controller.update = async function (req, res) {
         lokasi_file : req.file.path,
         id_dosen : req.user.userid,
         id_mahasiswa : req.user.mahasiswa,
-        program_studi : req.user.program_studi,
-        fakultas : req.user.fakultas,
-        semester : req.user.semester
+        program_studi : req.body.program_studi,
+        fakultas : req.body.fakultas,
+        semester : req.body.semester
     }
     const schema = {
         id_mbkm : { type: "string", max: 3, optional: false }

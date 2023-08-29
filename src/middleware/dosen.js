@@ -1,6 +1,6 @@
 function dosen(req, res, next) {
 
-    if (req.user.id_role == '2') {
+    if (req.user.userRole == 2) {
       next();
     } else {
         return res.status(401).json({
